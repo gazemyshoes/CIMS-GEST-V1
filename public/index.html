@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Gestión de Activos</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+    <a class="navbar-brand" href="/">
+  <div class="navbar-brand"> 🖥️ CIMS GESTOR <span class="version">V1</span> </div>
+</a>
+
+
+    <div class="navbar-links">
+        <a href="https://gestcims.alwaysdata.net/consultar-empleados" class="nav-link">
+            👥 <span>Empleados</span>
+        </a>
+        <a href="https://gestcims.alwaysdata.net/incidencias.html" class="nav-link">
+            ⚠️ <span>Incidencias</span>
+        </a>
+        <a href="https://gestcims.alwaysdata.net/registrar-usuario" class="nav-link">
+            👤 <span>Registrar Usuario</span>
+        </a>
+    </div>
+</nav>
+    <div class="container">
+        <h1 class="title">💡 ¿QUÉ DESEA REALIZAR?</h1>
+
+        <div class="options" id="options-container">
+            <a href="#" data-href="/ver-activos" class="option" id="ver-activos">
+                <img src="assets/icon-activos.webp" alt="Ver activos disponibles">
+                <p>Ver activos disponibles</p>
+            </a>
+            <a href="#" data-href="/registrar-activo" class="option" id="registrar-activo">
+                <img src="assets/icon-registrar-activo.webp" alt="Registrar Activo">
+                <p>Registrar Activo</p>
+            </a>
+            <a href="#" data-href="/registrar-incidencia" class="option" id="registrar-incidencia">
+                <img src="assets/icon-registrar-incidencia.webp" alt="Registrar Incidencia">
+                <p>Registrar Incidencia</p>
+            </a>
+            <a href="#" data-href="/registrar-empleado" class="option admin-only" id="registrar-empleado">
+                <img src="assets/icon-persona.webp" alt="Registrar empleados">
+                <p>Registrar empleados</p>
+            </a>
+           
+        </div>
+        <br>
+        <button id="logout-button" class="btn-gray">Cerrar Sesión</button>
+    </div>
+
+    <script src="/auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const userData = await checkAuth();
+            if (!userData) {
+                console.log('No autenticado, redirigiendo a login');
+                window.location.href = '/login.html';
+                return;
+            }
+    
+            const isAdmin = userData.user.isAdmin;
+            if (!isAdmin) {
+                document.querySelectorAll(".admin-only").forEach(option => option.style.display = "none");
+            }
+    
+            document.querySelectorAll(".option").forEach(link => {
+                link.addEventListener("click", async (e) => {
+                    e.preventDefault();
+                    const href = link.getAttribute("data-href");
+                    const authData = await checkAuth();
+                    if (authData) {
+                        const token = localStorage.getItem('token');
+                        console.log("Token para cookie:", token);
+                        if (!token) {
+                            console.error("No se encontró token en localStorage");
+                            window.location.href = '/login.html';
+                            return;
+                        }
+    
+                        // Restablecer la cookie solo si no existe
+                        if (!document.cookie.includes('authToken')) {
+                            document.cookie = `authToken=${token}; path=/; SameSite=Strict;`;
+                            console.log("Cookie establecida:", document.cookie);
+                        }
+                        window.location.href = href;
+                    }
+                });
+            });
+    
+            document.getElementById("logout-button").addEventListener("click", () => logout());
+        });
+    </script>
+</body>
+</html>

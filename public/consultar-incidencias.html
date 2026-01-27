@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <title>Consultar Incidencias</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="navbar-brand" href="/">
+      <div class="navbar-brand"> 🖥️ CIMS GESTOR <span class="version">V1</span> </div>
+    </a>
+    <div class="navbar-links">
+        <a href="https://gestcims.alwaysdata.net/consultar-empleados" class="nav-link">
+            👥 <span>Empleados</span>
+        </a>
+        <a href="https://gestcims.alwaysdata.net/incidencias.html" class="nav-link">
+            ⚠️ <span>Incidencias</span>
+        </a>
+        <a href="https://gestcims.alwaysdata.net/registrar-usuario" class="nav-link">
+            👤 <span>Registrar Usuario</span>
+        </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="/registrar-incidencia" class="back-button">⬅️ Regresar</a> 
+
+    <h1 class="title">🚨 Incidencias Registradas</h1>
+
+    <div class="search-bar">
+        <label for="search">Buscar:</label>
+        <input type="text" id="search" placeholder="Buscar por activo o empleado...">
+        <button id="search-button" class="btn">🔎 Buscar</button>
+        <button id="btn-exportar-todo">📥 Exportar PDF + Excel</button>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    </div>
+    
+    <div class="filter-bar"> 
+      <div class="filter-group">
+        <label for="filtro-area">Área:</label>
+        <select id="filtro-area">
+          <option value="">Todas las áreas</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filtro-estado">Estado:</label>
+        <select id="filtro-estado">
+          <option value="">Todos</option>
+          <option value="amarillo">No solucionados</option>
+          <option value="verde">Solucionados</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Activo</th>
+                    <th>Area</th>
+                    <th>Empleado</th>
+                    <th>Descripción de la incidencia</th>
+                    <th>Fecha de registro</th>
+                    <th>Fecha de solución</th>
+                    <th>Mantenimiento</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="8" style="text-align: center;">Cargando incidencias...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 10px; font-size: 14px; color: #333;">
+        <strong>Leyenda Mantenimiento:</strong> &nbsp; 🟢 Solucionado &nbsp; | &nbsp; 🟡 Pendiente / En Proceso
+    </div>
+    
+    <div id="pagination-controls" class="pagination-controls"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.25/dist/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <script src="/consultar-incidencias.js"></script>
+  <script src="/auth.js"></script>
+  
+</body>
+</html>

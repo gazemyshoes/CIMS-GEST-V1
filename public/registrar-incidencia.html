@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Incidencia</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar">
+    <a class="navbar-brand" href="/">
+  <div class="navbar-brand"> 🖥️ CIMS GESTOR <span class="version">V1</span> </div>
+</a>
+
+
+    <div class="navbar-links">
+        <a href="https://gestcims.alwaysdata.net/consultar-empleados" class="nav-link">
+            👥 <span>Empleados</span>
+        </a>
+        <a href="https://gestcims.alwaysdata.net/incidencias.html" class="nav-link">
+            ⚠️ <span>Incidencias</span>
+        </a>
+        <a href="https://gestcims.alwaysdata.net/registrar-usuario" class="nav-link">
+            👤 <span>Registrar Usuario</span>
+        </a>
+    </div>
+</nav>
+    <div class="container">
+        <a href="/" class="back-button">⬅️ Regresar</a>
+        <h1 class="title">📝 Registrar Incidencia</h1>
+<a href="/incidencias.html" class="btn-gray">🗃️ Ver Incidencias Registradas</a>
+        <!-- Sección de búsqueda del activo -->
+        <div class="form-group">
+            <label for="ItemCode">Código del Producto</label>
+            <select id="ItemCode" name="ItemCode" required>
+                <option value="">Seleccione un Activo</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="datos-activo">Información del Activo </label>
+            <textarea id="datos-activo" name="datos-activo" rows="10" readonly></textarea> 
+        </div>
+
+        <!-- Sección para registrar la incidencia -->
+        <form id="register-incident-form">
+            <div class="form-group">
+                <label for="activo_id">Activo</label>
+                <input type="text" id="activo_id" name="activo_id" readonly>
+                <input type="hidden" id="activo_real_id" name="activo_real_id">
+
+                <label for="empleado">Empleado que presenta la incidencia</label>
+                <input type="text" id="empleado" name="empleado" readonly placeholder="Seleccione un activo primero">
+                <input type="hidden" id="empleado-id" name="empleado-id">
+
+                <label for="usuario_id">Usuario que registra la incidencia</label>
+                <select id="usuario_id" name="usuario_id" required></select>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción de la Incidencia</label>
+                <textarea id="descripcion" name="descripcion" placeholder="Describa la incidencia" required></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn">💾 Registrar</button>
+                
+            </div>
+        </form>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/auth.js"></script>
+<script src="/registrar-incidencia.js"></script>   
+</body>
+</html>
