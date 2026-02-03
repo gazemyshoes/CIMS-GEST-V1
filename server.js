@@ -8,9 +8,9 @@ const paramProtection = require('./middleware/paramProtection');
 // Validar variables de entorno al inicio
 const validateEnv = require('./middleware/validateEnv');
 validateEnv();
-// #region agent log
-fetch('http://127.0.0.1:7242/ingest/d195c6c9-6150-4a26-810e-0ef5c42ed7eb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server.js:9',message:'Inicio de server.js',data:{env:process.env.NODE_ENV},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-// #endregion
+
+// CONEXIÓN A BASE DE DATOS (Agregado)
+const db = require('./config/database');
 
 // Middlewares personalizados
 const corsOptions = require('./middleware/corsConfig');
