@@ -128,9 +128,6 @@ app.use('/api', authenticateToken, [
 
 
 // Manejo de errores (debe ir al final, después de todas las rutas)
-// #region agent log
-fetch('http://127.0.0.1:7242/ingest/d195c6c9-6150-4a26-810e-0ef5c42ed7eb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server.js:126',message:'Registrando notFoundHandler y errorHandler',timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-// #endregion
 app.use(notFoundHandler);
 app.use(errorHandler);
 
