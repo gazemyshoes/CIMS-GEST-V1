@@ -47,42 +47,6 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false
 }));
 
-// CORS configurado
-app.use(cors(corsOptions));
-
-// Rate limiting general
-app.use(generalLimiter);
-
-// Protección contra polución de parámetros
-app.use(paramProtection);
-
-// Body parsers
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(cookieParser());
-
-// Logging de requests
-app.use(requestLogger);
-
-// Archivos estáticos
-app.use(express.static('public'));
-
-// Rutas API
-// Login con rate limiting estricto
-app.use('/api/login', loginLimiter);
-app.use('/api', loginRoutes);
-
-// Rutas protegidas con autenticación
-app.use('/api', authenticateToken, [
-    activoRoutes,
-    incidenciaRoutes,
-    empleadoRoutes,
-    areaRoutes,
-    usuarioRoutes,
-    mantenimientoRoutes,
-    asignacionesRoutes
-]);
-
 // Ruta para obtener datos del usuario actual
 app.get('/api/user', authenticateToken, (req, res) => {
     res.json({ user: req.user });
@@ -124,6 +88,44 @@ app.get('/registrar-empleado', authenticateToken, requireAdmin, (req, res) => {
 app.get('/registrar-usuario', authenticateToken, requireAdmin, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'registrar-usuario.html'));
 });
+
+
+// CORS configurado
+app.use(cors(corsOptions));
+
+// Rate limiting general
+app.use(generalLimiter);
+
+// Protección contra polución de parámetros
+app.use(paramProtection);
+
+// Body parsers
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cookieParser());
+
+// Logging de requests
+app.use(requestLogger);
+
+// Archivos estáticos
+app.use(express.static('public'));
+
+// Rutas API
+// Login con rate limiting estricto
+app.use('/api/login', loginLimiter);
+app.use('/api', loginRoutes);
+
+// Rutas protegidas con autenticación
+app.use('/api', authenticateToken, [
+    activoRoutes,
+    incidenciaRoutes,
+    empleadoRoutes,
+    areaRoutes,
+    usuarioRoutes,
+    mantenimientoRoutes,
+    asignacionesRoutes
+]);
+
 
 // Manejo de errores (debe ir al final, después de todas las rutas)
 // #region agent log
