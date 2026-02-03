@@ -1,5 +1,5 @@
 require('dotenv').config();
-const mysql = require('mysql');
+const mysql = require('mysql/promise');
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -7,6 +7,11 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT || 3306
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    connectTimeout: 10000,
+    acquireTimeout: 10000
 });
 
 db.connect((err) => {
@@ -17,4 +22,6 @@ db.connect((err) => {
     console.log('✅ Conectado a la base de datos:', process.env.DB_NAME);
 });
 
-module.exports = db;
+const pool = mysql.createPool(dbConfig);
+
+module.exports = pool;
