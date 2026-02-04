@@ -35,15 +35,17 @@ const loginRoutes = require('./routes/loginRoutes');
 
 // Middleware de seguridad (debe ir primero)
 app.use(helmet({
-    // CSP configurado para producción, desactivado en desarrollo para facilitar la integración de herramientas como Hot Reload
-    contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
+    contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net/"], // Añadir fuentes de scripts (SweetAlert2, etc.)
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net/"], // Añadir fuentes de estilos (Bootstrap, etc.)
-            imgSrc: ["'self'", "data:", "https://*"]
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+            imgSrc: ["'self'", "data:", "https://*"],
+            connectSrc: ["'self'", "http://20.48.228.65:3000"],  // ✅ API
+            formAction: ["'self'", "http://20.48.228.65:3000"], // ✅ Formularios
+            fontSrc: ["'self'", "https://cdn.jsdelivr.net"],      // ✅ Fuentes Bootstrap
         }
-    } : false,
+    },
     crossOriginEmbedderPolicy: false
 }));
 
