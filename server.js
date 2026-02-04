@@ -34,7 +34,7 @@ const asignacionesRoutes = require('./routes/asignacionesRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 
 // Middleware de seguridad (debe ir primero)
-app.use(helmet({
+/*app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
@@ -47,7 +47,7 @@ app.use(helmet({
         }
     },
     crossOriginEmbedderPolicy: false
-}));
+})); */
 
 // Ruta para obtener datos del usuario actual
 app.get('/api/user', authenticateToken, (req, res) => {
